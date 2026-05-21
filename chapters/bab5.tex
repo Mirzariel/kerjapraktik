@@ -1,0 +1,82 @@
+% !TEX root = ../main.tex
+% =========================================================
+% bab5.tex - PENUTUP
+% =========================================================
+
+\chapter[PENUTUP]{\\ PENUTUP}
+
+\section{Kesimpulan}
+
+Berdasarkan analisis dan pembahasan data hasil pengujian kurva I--V modul PV
+pasca-terendam pada PLTS Terapung Cirata, diperoleh beberapa kesimpulan, yaitu:
+
+\begin{enumerate}
+    \item Analisis dilakukan terhadap 59 data pengujian kurva I--V modul PV
+          pasca-terendam tipe JKM560N-72HL4-BDV yang diuji secara
+          \textit{onshore} dengan koreksi parameter ke STC. Karena terdapat
+          satu nomor uji yang muncul dua kali, hasil dinyatakan berdasarkan
+          data pengujian dan bukan sebagai klaim jumlah modul unik.
+
+    \item Hasil \textit{screening} performa daya oleh perangkat lunak pengolah
+          data menunjukkan 6 data (10,17\%) berstatus Ok dan 53 data (89,83\%)
+          berstatus Not Ok. Status ini merupakan hasil perbandingan $P_{max}$
+          STC terukur terhadap nilai \textit{nameplate} modul dan belum
+          merepresentasikan keputusan akhir kelayakan operasional.
+
+    \item Kelompok Not Ok mengalami penurunan rata-rata $P_{max}$ STC menjadi
+          sekitar 501,6~W atau sekitar 10,4\% di bawah nilai \textit{nameplate}
+          560~W. Penurunan ini menunjukkan bahwa modul pada kelompok Not Ok
+          mengalami penurunan performa daya yang substansial terhadap
+          spesifikasi pabrikan.
+
+    \item Analisis deviasi indikator $R_{VM}$ dan $R_{IM}$ terhadap nilai
+          referensi \textit{datasheet} menghasilkan $\Delta R_{VM} = -1{,}57\%$
+          dan $\Delta R_{IM} = +1{,}71\%$ untuk kelompok Not Ok, sehingga
+          diperoleh $\delta_V = 1{,}57\%$, $\delta_I = 0{,}00\%$, dan
+          $D_V = 1{,}00$. Indikator $R_{VM}$ berbeda signifikan antara kedua
+          kelompok berdasarkan Welch \textit{t-test} ($p < 0{,}001$), sedangkan
+          $R_{IM}$ tidak berbeda signifikan ($p = 0{,}150$), sehingga pemisahan
+          kelompok lebih dominan terjadi pada sisi tegangan.
+
+    \item Pola penurunan sisi tegangan pada kelompok Not Ok konsisten dengan
+          kemungkinan peningkatan resistansi seri atau mekanisme degradasi lain
+          yang menurunkan tegangan operasi modul. Interpretasi ini dibatasi
+          sebagai indikasi awal berbasis I--V dan tidak digunakan untuk
+          menetapkan jenis kerusakan fisik modul secara final.
+
+    \item Hasil pengujian I--V tidak cukup menjadi dasar tunggal keputusan
+          pemasangan kembali karena aspek keselamatan listrik tidak dapat
+          disimpulkan hanya dari parameter kurva I--V, sehingga diperlukan
+          pengujian tahanan isolasi dan pemeriksaan keselamatan lanjutan.
+\end{enumerate}
+
+\section{Saran}
+
+Berdasarkan hasil analisis yang telah dilakukan, berikut ini adalah saran-saran
+yang dapat digunakan sebagai panduan untuk kegiatan dan pengembangan
+selanjutnya:
+
+\begin{enumerate}
+    \item Melakukan pengujian tahanan isolasi (\textit{insulation resistance
+          test}) pada seluruh modul pasca-terendam sebelum keputusan pemasangan
+          kembali, karena risiko utama bukan hanya penurunan daya tetapi juga
+          keselamatan listrik.
+
+    \item Melengkapi evaluasi dengan inspeksi visual, termografi, dan/atau
+          elektroluminesensi jika tersedia untuk mengonfirmasi mekanisme
+          degradasi yang teridentifikasi dari parameter elektrik.
+
+    \item Melakukan pengujian ulang pada kondisi irradiansi yang lebih
+          representatif untuk data yang diperoleh pada irradiansi rendah,
+          khususnya kelompok Ok, sebelum data tersebut dijadikan dasar
+          keputusan.
+
+    \item Mendokumentasikan kondisi modul dan riwayat lokasi modul secara
+          sistematis agar interpretasi pola degradasi dapat dikaitkan dengan
+          kondisi operasi aktual.
+
+    \item Mengintegrasikan hasil pengujian I--V dengan prosedur
+          \textit{operation and maintenance} PLTS Terapung Cirata, termasuk
+          pemantauan parameter tegangan ($V_{mp}$ dan tegangan
+          \textit{string}) sebagai indikator awal adanya modul terdegradasi.
+\end{enumerate}

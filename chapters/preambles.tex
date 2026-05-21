@@ -1,0 +1,342 @@
+% =========================================================
+% PREAMBLES.TEX - FINAL REPLACEMENT
+% Untuk Laporan Kerja Praktik + Gambar Teknis PV
+% Compile menggunakan XeLaTeX atau LuaLaTeX
+% =========================================================
+
+% --- PENGATURAN WARNA (HARUS DI ATAS) ---
+% Memanggil xcolor di awal mencegah bentrok opsi dengan paket lain
+\usepackage[table,xcdraw]{xcolor}
+
+% --- PENGATURAN BAHASA DAN FONT ---
+\usepackage[indonesian]{babel}
+
+% Menggunakan font asli Times New Roman
+% WAJIB compile dengan XeLaTeX atau LuaLaTeX, bukan pdfLaTeX
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+% --- PENGATURAN SPASI DAN PARAGRAF ---
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{indentfirst}
+\setlength{\parindent}{1cm}
+\setlength{\parskip}{0pt}
+
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+% --- PENGATURAN HALAMAN DAN MARGIN ---
+\usepackage{geometry}
+\geometry{
+    top=3.5cm,
+    left=3.75cm,
+    bottom=2.5cm,
+    right=2.75cm,
+}
+
+\usepackage{scrextend}
+\usepackage{fancyhdr}
+\usepackage{changepage}
+\usepackage{pdflscape}
+\usepackage{rotating}
+
+% --- PENGATURAN LEVEL DAN PENOMORAN BAB/SUBBAB ---
+\setcounter{secnumdepth}{6}
+
+\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}\hspace{0.05cm}}
+\renewcommand{\thesubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}\hspace{-0.25cm}}
+\renewcommand{\thesubsubsection}{\Alph{subsubsection}.\hspace{-0.25cm}}
+\renewcommand{\theparagraph}{\arabic{paragraph}.\hspace{-0.25cm}}
+
+% --- PENGATURAN JUDUL BAB DAN SUBBAB ---
+\usepackage{titlesec}
+
+\titleformat{\chapter}
+  {\doublespacing\fontsize{14pt}{16pt}\bfseries}
+  {\MakeUppercase{\chaptertitlename\ \Roman{chapter}}\filcenter}
+  {0.15cm}
+  {\centering\uppercase}
+
+\titlespacing*{\chapter}{0pt}{-1cm}{20pt}
+
+\titleformat*{\section}{\fontsize{12pt}{14pt}\selectfont\bfseries}
+\titleformat*{\subsection}{\fontsize{12pt}{14pt}\selectfont\bfseries}
+\titleformat*{\subsubsection}{\fontsize{12pt}{14pt}\selectfont\bfseries}
+\titleformat*{\paragraph}{\normalfont\fontsize{12pt}{14pt}\selectfont}
+
+\titlespacing*{\section}{0pt}{10pt}{0cm}
+\titlespacing*{\subsection}{0pt}{10pt}{0cm}
+\titlespacing*{\subsubsection}{0pt}{10pt}{0cm}
+\titlespacing*{\paragraph}{0pt}{10pt}{0cm}
+
+% --- PENGATURAN DAFTAR ISI, GAMBAR, DAN TABEL ---
+\usepackage[subfigure]{tocloft}
+
+\renewcommand{\cfttoctitlefont}{\hfil\large\bfseries\MakeUppercase}
+\renewcommand{\cftloftitlefont}{\hfil\large\bfseries\MakeUppercase}
+\renewcommand{\cftlottitlefont}{\hfil\large\bfseries\MakeUppercase}
+
+\renewcommand\cftchappresnum{BAB }
+\renewcommand\cftchapaftersnum{}
+
+\newlength\mylen
+\settowidth\mylen{\bfseries BAB 1 :\ }
+\cftsetindents{chap}{0pt}{\mylen}
+
+\newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
+\addtocontents{lof}{\protect\noaddvspace}
+
+% --- PENGATURAN GAMBAR DAN CAPTION ---
+\usepackage{graphicx}
+\graphicspath{{gambar/}}
+
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage[hang,centerlast,nooneline,small,md]{subfigure}
+\usepackage[font=footnotesize,format=plain,labelfont=bf,up,textfont=up]{caption}
+
+\captionsetup[figure]{labelsep=space}
+\captionsetup[table]{labelsep=space}
+
+\renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}
+\renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}
+
+\usepackage{url}
+
+\newcommand*{\putsource}[1]{%
+    \textbf{\small{Sumber: }} \small{\url{#1}}
+}
+
+% --- PENGATURAN TABEL ---
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{siunitx}
+
+\sisetup{
+    detect-all,
+    group-separator={,},
+    group-minimum-digits=4,
+    round-mode=places,
+    round-precision=3
+}
+
+% --- PENGATURAN MATEMATIKA ---
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{stmaryrd}
+\usepackage{mathtools}
+
+\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
+
+% --- PENGATURAN TIKZ, CIRCUITIKZ, DAN PGFPLOTS ---
+% Bagian ini penting untuk gambar teknis pada Bab 3 dan Bab 4
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+
+\usetikzlibrary{
+    arrows.meta,
+    positioning,
+    calc,
+    shapes.geometric,
+    decorations.pathreplacing,
+    matrix,
+    patterns
+}
+
+\pgfplotsset{compat=1.18}
+
+% --- STYLE TIKZ UNTUK GAMBAR TEKNIS PV ---
+% Style ini dibutuhkan oleh gambar dari paper teknis:
+% pvmod, pvmodbad, rblock, lab, labred, arr
+\tikzset{
+    pvmod/.style={
+        draw,
+        rectangle,
+        rounded corners=2pt,
+        minimum width=1.2cm,
+        minimum height=0.6cm,
+        line width=0.6pt,
+        fill=blue!8,
+        font=\scriptsize
+    },
+    pvmodbad/.style={
+        draw,
+        rectangle,
+        rounded corners=2pt,
+        minimum width=1.2cm,
+        minimum height=0.6cm,
+        line width=0.6pt,
+        fill=red!15,
+        font=\scriptsize
+    },
+    rblock/.style={
+        draw,
+        rectangle,
+        minimum width=0.9cm,
+        minimum height=0.35cm,
+        line width=0.6pt,
+        fill=white,
+        font=\scriptsize
+    },
+    lab/.style={
+        font=\scriptsize,
+        align=center
+    },
+    labred/.style={
+        font=\scriptsize,
+        align=center,
+        text=red!70!black
+    },
+    arr/.style={
+        -{Latex[length=2mm]},
+        line width=0.8pt
+    }
+}
+
+% --- PENGATURAN LIST (ENUMERATE/ITEMIZE) ---
+\usepackage{enumitem}
+
+\newenvironment{packed_enum}{
+    \begin{enumerate}[leftmargin=1.5\parindent]
+        \setlength{\itemsep}{0pt}
+        \setlength{\parskip}{0pt}
+        \setlength{\parsep}{0pt}
+}{
+    \end{enumerate}
+}
+
+\newenvironment{packed_item}{
+    \begin{itemize}[leftmargin=1.5\parindent]
+        \setlength{\itemsep}{0pt}
+        \setlength{\parskip}{0pt}
+        \setlength{\parsep}{0pt}
+}{
+    \end{itemize}
+}
+
+% --- PENGATURAN REFERENSI DAN SITASI ---
+\usepackage{cite}
+\usepackage{varioref}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cleveref}
+
+% --- PENGATURAN LAIN-LAIN ---
+\usepackage{blindtext}
+\usepackage{lipsum}
+\usepackage{epigraph}
+
+% --- PENGATURAN LISTING KODE ---
+\usepackage{listings}
+
+% Warna Kustom untuk Listing
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Warna Khusus Processing
+\definecolor{processingblack}{RGB}{0,0,0}
+\definecolor{processinggray}{RGB}{102,102,102}
+\definecolor{function}{RGB}{0,102,153}
+\definecolor{lightgreen}{RGB}{102,153,0}
+\definecolor{bluegreen}{RGB}{51,153,126}
+\definecolor{magenta}{RGB}{217,74,122}
+\definecolor{orange}{RGB}{226,102,26}
+\definecolor{purple}{RGB}{125,71,147}
+\definecolor{green}{RGB}{113,138,98}
+
+% Style Default Listing
+\lstdefinestyle{custom}{
+    frame=single,
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=6pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=custom}
+
+% Definisi sederhana bahasa Processing
+% Definisi ini dibuat ringkas agar tidak memberatkan preamble.
+% Jika laporan tidak memakai kode Processing, bagian ini tidak masalah dibiarkan.
+\lstdefinelanguage{Processing}{
+    morekeywords={
+        abstract,break,class,continue,default,enum,extends,false,final,finally,
+        implements,import,instanceof,interface,native,new,null,package,private,
+        protected,public,static,strictfp,throws,transient,true,void,volatile,
+        return,super,this,throw,catch,do,for,if,else,switch,synchronized,while,try,
+        width,height,frameCount,frameRate,key,keyCode,keyPressed,mouseButton,
+        mousePressed,mouseX,mouseY,pmouseX,pmouseY,pixels,
+        Array,ArrayList,Boolean,Byte,Character,Class,Double,Float,Integer,
+        HashMap,PrintWriter,String,StringBuffer,StringBuilder,Thread,
+        boolean,byte,char,color,double,float,int,long,short,
+        setup,draw,keyReleased,keyTyped,mouseClicked,mouseDragged,mouseMoved,
+        mouseReleased,mouseWheel,settings,
+        abs,acos,alpha,ambient,ambientLight,append,applyMatrix,arc,arrayCopy,
+        asin,atan,atan2,background,beginCamera,beginContour,beginRaw,beginRecord,
+        beginShape,bezier,bezierDetail,bezierPoint,bezierTangent,bezierVertex,
+        binary,blend,blendColor,blendMode,blue,box,brightness,camera,ceil,
+        circle,clear,clip,colorMode,concat,constrain,copy,cos,createFont,
+        createGraphics,createImage,createInput,createOutput,createReader,
+        createShape,createWriter,cursor,curve,curveDetail,curvePoint,
+        curveTangent,curveTightness,curveVertex,day,degrees,delay,
+        directionalLight,displayDensity,dist,ellipse,ellipseMode,emissive,
+        endCamera,endContour,endRaw,endRecord,endShape,exit,exp,expand,fill,
+        filter,floor,frustum,fullScreen,get,green,hex,hint,hour,hue,image,
+        imageMode,join,launch,lerp,lerpColor,lightFalloff,lights,line,
+        loadBytes,loadFont,loadImage,loadJSONArray,loadJSONObject,loadPixels,
+        loadShader,loadShape,loadStrings,loadTable,loadXML,log,loop,mag,map,
+        match,matchAll,max,millis,min,minute,month,nf,nfc,nfp,nfs,noClip,
+        noCursor,noFill,noise,noiseDetail,noiseSeed,noLights,noLoop,norm,
+        normal,noSmooth,noStroke,noTint,ortho,perspective,pixelDensity,point,
+        pointLight,popMatrix,popStyle,pow,print,printArray,println,printMatrix,
+        pushMatrix,pushStyle,quad,quadraticVertex,radians,random,randomGaussian,
+        randomSeed,rect,rectMode,red,redraw,requestImage,resetMatrix,reverse,
+        rotate,rotateX,rotateY,rotateZ,round,saturation,save,saveFrame,scale,
+        screenX,screenY,screenZ,second,selectFolder,selectInput,selectOutput,
+        set,shader,shape,shapeMode,shearX,shearY,shininess,shorten,sin,size,
+        smooth,sort,specular,sphere,sphereDetail,splice,split,splitTokens,
+        spotLight,sq,sqrt,square,stroke,strokeCap,strokeJoin,strokeWeight,
+        subset,tan,text,textAlign,textAscent,textDescent,textFont,textLeading,
+        textMode,textSize,texture,textureMode,textureWrap,textWidth,thread,
+        tint,translate,triangle,trim,unbinary,unhex,updatePixels,vertex,year
+    },
+    sensitive=true,
+    morecomment=[l][\color{processinggray}]{//},
+    morecomment=[s][\color{processinggray}]{/*}{*/},
+    morecomment=[s][\color{processinggray}]{/**}{*/},
+    morestring=[b][\color{purple}]",
+    morestring=[b][\color{purple}]',
+    keywordstyle=\color{function}\bfseries,
+    commentstyle=\color{processinggray},
+    stringstyle=\color{purple}
+}
+
+% =========================================================
+% AKHIR PREAMBLES.TEX
+% =========================================================

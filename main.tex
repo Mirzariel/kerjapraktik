@@ -1,0 +1,49 @@
+% =========================================================
+% Template Laporan Kerja Praktik
+% Departemen Teknik Elektro dan Teknologi Informasi
+% Fakultas Teknik Universitas Gadjah Mada
+% Disesuaikan untuk: Bagus Aldiguna dan Mirzariel Akmal Norman
+% =========================================================
+%!TEX program = xelatex
+\documentclass[12pt,a4paper,onecolumn,oneside,final]{report}
+
+\input{chapters/identitas}
+\input{chapters/preambles}
+\input{chapters/database.hyphenate}
+
+\begin{document}
+
+% ---------------------------------------------------------
+% FRONT MATTER
+% ---------------------------------------------------------
+\include{chapters/sampul}
+
+\pagenumbering{roman}
+\setcounter{page}{2}
+
+\include{chapters/pengesahan}
+\include{chapters/katapengantar}
+\include{chapters/daftarisi}
+\include{chapters/daftargambar}
+\include{chapters/daftartabel}
+\include{chapters/daftarsingkatan}
+\include{chapters/abstrak}
+\include{chapters/daftarlampiran}
+
+% ---------------------------------------------------------
+% MAIN MATTER
+% ---------------------------------------------------------
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\include{chapters/bab1}
+\include{chapters/bab2}
+\include{chapters/bab3}
+\include{chapters/bab4}
+\include{chapters/bab5}
+
+\input{chapters/daftarpustaka}
+\input{chapters/lampiran1}
+
+\end{document}

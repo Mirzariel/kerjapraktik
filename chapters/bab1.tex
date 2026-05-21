@@ -1,0 +1,333 @@
+% !TEX root = ../main.tex
+% =========================================================
+% bab1.tex - PENDAHULUAN
+% =========================================================
+
+\chapter[PENDAHULUAN]{\\ PENDAHULUAN}
+
+\section{Latar Belakang}
+
+Pemanfaatan energi terbarukan menjadi salah satu aspek penting dalam
+pengembangan sistem ketenagalistrikan modern. Salah satu teknologi yang
+berkembang pesat adalah pembangkit listrik tenaga surya (PLTS). Selain dibangun
+pada lahan darat, PLTS juga dapat dikembangkan pada permukaan air dalam bentuk
+PLTS terapung. PLTS terapung memiliki keuntungan dari sisi pemanfaatan area
+perairan, tetapi memiliki tantangan operasi dan pemeliharaan yang berbeda
+dibandingkan PLTS berbasis darat karena komponen sistem berada pada lingkungan
+yang dipengaruhi air, kelembapan, perubahan muka air, serta pergerakan struktur
+apung \cite{worldbankFPV2019,ieaFPV2025}. PLTS Terapung Cirata sebagai lokasi
+kerja praktik ditunjukkan pada Gambar~\ref{gbr:plts-terapung-cirata}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{pltscirata.jpg}
+\caption{PLTS Terapung Cirata.}
+\label{gbr:plts-terapung-cirata}
+\end{figure}
+
+Salah satu kondisi abnormal yang dapat ditemukan pada PLTS terapung adalah
+modul PV yang terendam akibat gangguan pada struktur apung. Kondisi tersebut
+merupakan gejala fisik yang perlu dievaluasi melalui parameter elektrik, yaitu
+arus, tegangan, serta karakteristik kurva arus--tegangan (I--V) dan
+daya--tegangan (P--V). Studi pada \textit{photovoltaic power plant} yang
+mengalami kondisi banjir menunjukkan bahwa paparan air dan kelembapan dapat
+berkaitan dengan penurunan tahanan isolasi serta munculnya arus bocor pada
+modul PV \cite{ketjoy2022}. Oleh karena itu, modul yang pernah terendam tidak
+dapat langsung dinyatakan layak hanya berdasarkan inspeksi visual. Alur
+evaluasi modul PV pasca-terendam pada laporan ini ditunjukkan pada
+Gambar~\ref{gbr:konteks-latarbelakang}.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    node distance=0.75cm,
+    every node/.style={font=\small},
+    box/.style={
+        draw,
+        rounded corners=3pt,
+        align=center,
+        minimum width=8.6cm,
+        minimum height=0.78cm,
+        fill=blue!6
+    },
+    boxwarn/.style={
+        draw,
+        rounded corners=3pt,
+        align=center,
+        minimum width=8.6cm,
+        minimum height=0.78cm,
+        fill=orange!12
+    },
+    boxresult/.style={
+        draw,
+        rounded corners=3pt,
+        align=center,
+        minimum width=8.6cm,
+        minimum height=0.78cm,
+        fill=green!10
+    },
+    arrow/.style={
+        -{Latex[length=2.3mm]},
+        line width=0.7pt
+    }
+]
+
+\node[box] (a) {PLTS Terapung};
+\node[box, below=of a] (b) {Lingkungan air, kelembapan, perubahan muka air, dan pergerakan
+struktur apung};
+\node[boxwarn, below=of b] (c) {Modul PV pasca-terendam};
+\node[box, below=of c] (d) {Pengujian kurva I--V dan koreksi ke STC};
+\node[box, below=of d] (e) {Analisis $P_{max}$, Fill Factor, $R_{VM}$, dan $R_{IM}$};
+\node[boxresult, below=of e] (f) {Evaluasi performa dan arah pemeriksaan O\&M};
+
+\draw[arrow] (a) -- (b);
+\draw[arrow] (b) -- (c);
+\draw[arrow] (c) -- (d);
+\draw[arrow] (d) -- (e);
+\draw[arrow] (e) -- (f);
+
+\end{tikzpicture}
+\caption{Alur evaluasi modul PV pasca-terendam.}
+\label{gbr:konteks-latarbelakang}
+\end{figure}
+
+Pengujian kelayakan modul PV pada umumnya dilakukan melalui pengukuran kurva
+I--V. Karakteristik I--V mengandung informasi mengenai keadaan aktual modul,
+termasuk parameter \textit{open-circuit voltage} ($V_{oc}$),
+\textit{short-circuit current} ($I_{sc}$), titik daya maksimum ($P_{max}$),
+serta titik kerja $V_{mp}$ dan $I_{mp}$ \cite{linwu2025}. Parameter tersebut
+dibandingkan dengan nilai \textit{nameplate} pada \textit{datasheet} untuk
+mengevaluasi tingkat penurunan performa modul. Perubahan bentuk kurva I--V juga
+dipengaruhi oleh perubahan parameter internal sel surya, seperti resistansi
+seri ($R_s$) dan resistansi shunt ($R_{sh}$), sehingga bentuk kurva dapat
+digunakan sebagai petunjuk awal kecenderungan degradasi modul
+\cite{villalva2009}. Keterkaitan antara fenomena fisik akibat paparan air dan
+parameter elektrik yang diamati ditunjukkan pada
+Gambar~\ref{gbr:hubungan-fisik-elektrik}.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    node distance=0.9cm,
+    every node/.style={font=\small},
+    mainbox/.style={
+        draw,
+        rounded corners=3pt,
+        align=center,
+        minimum width=3.7cm,
+        minimum height=0.85cm,
+        fill=blue!6
+    },
+    warnbox/.style={
+        draw,
+        rounded corners=3pt,
+        align=center,
+        minimum width=3.7cm,
+        minimum height=0.85cm,
+        fill=orange!12
+    },
+    resultbox/.style={
+        draw,
+        rounded corners=3pt,
+        align=center,
+        minimum width=3.7cm,
+        minimum height=0.85cm,
+        fill=green!10
+    },
+    arrow/.style={
+        -{Latex[length=2.3mm]},
+        line width=0.7pt
+    }
+]
+
+\node[warnbox] (a) at (0,0) {Paparan air dan\\ kelembapan};
+\node[mainbox, right=1.05cm of a] (b) {Perubahan kontak,\\ isolasi, atau\\ resistansi internal};
+\node[mainbox, right=1.05cm of b] (c) {Perubahan $V_{oc}$,\\ $I_{sc}$, $V_{mp}$,\\ dan $I_{mp}$};
+
+\node[resultbox, below=1.0cm of b] (d) {Perubahan $P_{max}$,\\ Fill Factor,\\ $R_{VM}$, dan $R_{IM}$};
+
+\node[resultbox, below=1.0cm of d] (e) {Indikasi awal\\ degradasi modul};
+
+\draw[arrow] (a) -- (b);
+\draw[arrow] (b) -- (c);
+\draw[arrow] (b) -- (d);
+\draw[arrow] (c) |- (d);
+\draw[arrow] (d) -- (e);
+
+\end{tikzpicture}
+\caption{Hubungan fenomena fisik dan parameter elektrik modul PV.}
+\label{gbr:hubungan-fisik-elektrik}
+\end{figure}
+
+Untuk memisahkan informasi sisi tegangan dan sisi arus dari kurva I--V, Pei dan
+Hao \cite{pei2019} mendefinisikan indikator $R_{VM} = V_{mp}/V_{oc}$ dan
+$R_{IM} = I_{mp}/I_{sc}$. Indikator $R_{VM}$ mencerminkan posisi relatif titik
+daya maksimum terhadap $V_{oc}$, sedangkan $R_{IM}$ mencerminkan posisi relatif
+titik daya maksimum terhadap $I_{sc}$. Keduanya dapat didekomposisi dari Fill
+Factor melalui hubungan $FF = R_{VM} \cdot R_{IM}$, sehingga penurunan $FF$
+dapat diidentifikasi lebih lanjut apakah dominan berasal dari sisi tegangan
+atau sisi arus. Pendekatan serupa telah diterapkan pada PLTS skala 1~MWp untuk
+membedakan pola perubahan parameter arus dan tegangan pada level sistem
+\cite{sugirianta2022}.
+
+Modul PV pada sistem PLTS tidak bekerja sebagai komponen tunggal. Beberapa
+modul tersusun seri membentuk \textit{string} dan beberapa \textit{string}
+dihubungkan paralel menuju \textit{DC combiner} dan inverter. Kondisi abnormal
+pada satu modul dapat memengaruhi karakteristik elektrik \textit{string},
+baik melalui penurunan kontribusi arus maupun penurunan kontribusi tegangan.
+Indikator $R_{VM}$ dan $R_{IM}$ membantu membedakan kedua kecenderungan pola
+tersebut tanpa harus menetapkan satu jenis gangguan secara final.
+
+Selain aspek performa daya, kondisi modul PV terendam juga berkaitan dengan
+keselamatan dan isolasi. Parameter arus dan tegangan dari pengujian I--V belum
+cukup untuk menyimpulkan bahwa suatu modul berada pada kondisi aman dari sisi
+isolasi. Prosedur pemeriksaan \textit{ground fault} menempatkan pengukuran
+tahanan isolasi sebagai langkah penting ketika pengukuran tegangan belum cukup
+memberikan informasi yang jelas \cite{smaGroundFault}. Oleh sebab itu, hasil
+pengujian I--V diposisikan sebagai dasar elektrik awal, sedangkan keputusan
+pemasangan kembali tetap memerlukan \textit{insulation resistance test} dan
+inspeksi lanjutan.
+
+Topik ini dipilih karena relevan dengan kegiatan \textit{operation and
+maintenance} (O\&M) PLTS Terapung Cirata. Selama pelaksanaan kerja praktik,
+sejumlah modul PV yang mengalami kondisi abnormal telah dibawa ke darat dan
+diuji menggunakan \textit{I--V curve tracer} dengan koreksi parameter ke
+kondisi \textit{standard test conditions} (STC). Koreksi ke STC diperlukan
+agar parameter antar modul dapat dibandingkan pada kondisi acuan yang sama,
+dengan tetap memperhatikan batasan ketidakpastian pengukuran pada irradiansi
+tertentu \cite{iec60891,iec61829}. Analisis pada laporan ini dilakukan terhadap
+59 data pengujian modul PV tipe JKM560N-72HL4-BDV dan diposisikan sebagai
+evaluasi awal berbasis parameter elektrik yang memanfaatkan perbandingan
+parameter STC terhadap \textit{nameplate}, Fill Factor, indikator $R_{VM}$ dan
+$R_{IM}$, serta interpretasi awal terhadap implikasi O\&M.
+
+\section{Batasan Masalah}
+
+Agar pembahasan dalam laporan kerja praktik ini lebih terarah, batasan masalah
+yang digunakan adalah sebagai berikut:
+
+\begin{enumerate}
+    \item Analisis dilakukan pada konteks PLTS Terapung Cirata.
+    \item Objek analisis adalah 59 data pengujian kurva I--V modul PV tipe
+          JKM560N-72HL4-BDV yang sebelumnya mengalami kondisi abnormal
+          (pasca-terendam).
+    \item Modul PV terendam dipandang sebagai kondisi abnormal fisik yang perlu
+          dievaluasi melalui parameter elektrik; analisis tidak menetapkan
+          satu jenis gangguan secara final.
+    \item Analisis menggunakan parameter STC, deviasi terhadap
+          \textit{nameplate}, Fill Factor, serta indikator $R_{VM}$ dan
+          $R_{IM}$.
+    \item Pengujian I--V dilakukan secara \textit{onshore} dengan koreksi
+          parameter ke STC; analisis ini tidak mencakup pelaksanaan pengujian
+          tahanan isolasi.
+    \item Analisis tidak membahas kestabilan sistem tenaga, profil frekuensi,
+          maupun profil tegangan pada jaringan AC.
+    \item Hasil analisis merupakan evaluasi awal berbasis parameter elektrik
+          dan bukan pengganti prosedur resmi operasi dan pemeliharaan
+          perusahaan.
+\end{enumerate}
+
+\section{Tujuan}
+
+Berikut adalah beberapa tujuan yang ditetapkan untuk memandu penyusunan laporan
+kerja praktik ini:
+
+\begin{enumerate}
+    \item Menjelaskan relevansi kondisi modul PV pasca-terendam terhadap
+          kebutuhan evaluasi berbasis parameter elektrik pada PLTS terapung.
+    \item Menganalisis 59 data pengujian I--V melalui perbandingan parameter
+          STC terhadap nilai \textit{nameplate}.
+    \item Menghitung dan menganalisis Fill Factor serta indikator $R_{VM}$ dan
+          $R_{IM}$ untuk mengidentifikasi pola degradasi yang dominan.
+    \item Mengidentifikasi kecenderungan pola degradasi berdasarkan indikator
+          arus--tegangan, yaitu apakah penurunan performa lebih dominan pada
+          sisi tegangan atau sisi arus.
+    \item Menyusun interpretasi awal sebagai dasar arah pemeriksaan teknis
+          pada kegiatan \textit{operation and maintenance}.
+\end{enumerate}
+
+\section{Manfaat}
+
+Adapun manfaat yang diperoleh dari penyusunan laporan kerja praktik ini adalah
+sebagai berikut:
+
+\begin{enumerate}
+    \item Bagi penulis, kegiatan kerja praktik ini memberikan pemahaman
+          mengenai konfigurasi modul, \textit{string}, dan \textit{array} pada
+          PLTS terapung serta penerapan pengujian I--V dan indikator arus--%
+          tegangan untuk mengevaluasi modul PV pasca-terendam.
+    \item Bagi perusahaan, laporan ini dapat memberikan kerangka awal untuk
+          memilah modul PV pasca-terendam berdasarkan performa daya dan
+          mengarahkan pemeriksaan lanjutan. Jika indikator tegangan lebih
+          dominan menurun, pemeriksaan dapat difokuskan pada sisi tegangan
+          operasi; jika hasil I--V belum cukup menjelaskan kondisi modul,
+          pemeriksaan dapat dilanjutkan melalui \textit{insulation resistance
+          test} dan inspeksi visual.
+    \item Bagi akademik, laporan ini dapat menjadi contoh penerapan teori
+          karakteristik I--V/P--V serta analisis parameter elektrik modul PV
+          pada kasus PLTS terapung.
+\end{enumerate}
+
+\section{Rumusan Masalah}
+
+Berdasarkan latar belakang yang telah dijelaskan, rumusan masalah dalam laporan
+kerja praktik ini adalah sebagai berikut:
+
+\begin{enumerate}
+    \item Bagaimana status performa daya 59 data pengujian modul PV
+          pasca-terendam berdasarkan $P_{max}$ STC?
+    \item Bagaimana deviasi parameter $V_{oc}$, $I_{sc}$, $V_{mp}$, $I_{mp}$,
+          dan $P_{max}$ terhadap nilai \textit{nameplate}?
+    \item Bagaimana Fill Factor serta indikator $R_{VM}$ dan $R_{IM}$
+          membedakan kelompok Ok dan Not Ok, dan pola degradasi mana yang lebih
+          dominan?
+    \item Bagaimana hasil analisis tersebut dapat digunakan sebagai dasar
+          interpretasi awal untuk kegiatan \textit{operation and maintenance}?
+\end{enumerate}
+
+\section{Waktu dan Tempat Pelaksanaan}
+
+Pelaksanaan kerja praktik dilakukan pada periode yang ditetapkan oleh
+perusahaan dan program studi. Adapun waktu dan tempat pelaksanaan kerja praktik
+ditunjukkan pada Tabel~\ref{tabel:waktu-tempat-kp}.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{p{1cm} p{2.5cm} p{0.25cm} p{10.25cm}}
+        & Waktu  & : & {\tglMulai} -- {\tglSelesai} \\
+        & Tempat & : & {\penempatan} \\
+    \end{tabular}
+    \caption{Waktu dan tempat pelaksanaan kerja praktik}
+    \label{tabel:waktu-tempat-kp}
+\end{table}
+
+\section{Metode}
+
+Metode yang digunakan dalam penyusunan laporan kerja praktik ini meliputi
+observasi kegiatan kerja praktik, studi literatur, pengumpulan data pengujian
+yang diperbolehkan, pengolahan data, serta analisis dan interpretasi hasil.
+Observasi dilakukan untuk memahami lingkungan kerja serta kegiatan operasi dan
+pemeliharaan di PLTS Terapung Cirata. Studi literatur dilakukan untuk memahami
+konfigurasi sistem PV, karakteristik I--V/P--V, parameter STC, Fill Factor,
+indikator arus--tegangan, serta peran \textit{insulation resistance test} pada
+modul pasca-terendam. Data yang dianalisis berupa 59 data pengujian kurva I--V
+modul PV pasca-terendam yang telah dikoreksi ke STC. Pengolahan data dilakukan
+dalam empat tahap, yaitu perbandingan parameter terhadap \textit{nameplate},
+analisis Fill Factor, analisis indikator $R_{VM}$ dan $R_{IM}$, serta
+interpretasi pola degradasi dan implikasinya terhadap kegiatan O\&M.
+
+\section{Lingkup Penulisan}
+
+Laporan kerja praktik ini disusun dalam lima bab. BAB~I berisi pendahuluan yang
+meliputi latar belakang, batasan masalah, tujuan, manfaat, rumusan masalah,
+waktu dan tempat pelaksanaan, metode, serta lingkup penulisan. BAB~II berisi
+profil PT Pembangkitan Jawa Bali Masdar Solar Energi (PT~PMSE) dan gambaran
+umum PLTS Terapung Cirata. BAB~III berisi pokok pembahasan yang mencakup dasar
+teori dan metodologi teknis, meliputi sistem PLTS terapung, konfigurasi
+modul-\textit{string}-\textit{array}, karakteristik I--V/P--V, parameter
+elektrikal, Fill Factor, indikator arus--tegangan, pola perubahan parameter
+arus dan tegangan pada sistem PV, serta objek dan tahapan pengolahan data.
+BAB~IV berisi hasil dan pembahasan yang mencakup karakteristik data pengujian,
+analisis status performa, deviasi parameter, Fill Factor, indikator $R_{VM}$
+dan $R_{IM}$, interpretasi pola degradasi, serta implikasi terhadap kegiatan
+\textit{operation and maintenance}. BAB~V berisi kesimpulan dan saran.
