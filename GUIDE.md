@@ -50,6 +50,7 @@ latex_laporan_v1/
 ├── main.pdf                    # Berkas PDF hasil kompilasi laporan
 ├── README.md                   # Catatan awal template
 ├── GUIDE.md                    # Berkas panduan ini
+├── GITHUB_GUIDE.md             # Berkas panduan git & GitHub
 │
 ├── bibliography/               # Folder bibliografi tambahan (saat ini kosong)
 │
