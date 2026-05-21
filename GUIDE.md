@@ -51,6 +51,7 @@ latex_laporan_v1/
 ├── README.md                   # Catatan awal template
 ├── GUIDE.md                    # Berkas panduan ini
 ├── GITHUB_GUIDE.md             # Berkas panduan git & GitHub
+├── COLLABORATION_GUIDE.md      # Berkas panduan kolaborasi tim
 │
 ├── bibliography/               # Folder bibliografi tambahan (saat ini kosong)
 │
